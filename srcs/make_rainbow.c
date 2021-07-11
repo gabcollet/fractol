@@ -6,17 +6,17 @@
 /*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 17:35:19 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/09 17:38:19 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/07/11 15:56:02 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-unsigned int rgbchange(t_rgb *rgb)
+unsigned int rgbchange(t_data *rgb)
 {
 	int multi;
 
-	multi = 3; //chiffre impaire seulement
+	multi = 15; //chiffre impaire seulement
 	if (rgb->r <= 0 && rgb->g > 0 && rgb->b >= 255)
 		rgb->g -= multi;
 	if (rgb->r < 255 && rgb->g <= 0 && rgb->b >= 255)
@@ -32,28 +32,28 @@ unsigned int rgbchange(t_rgb *rgb)
 	return (rgb->b + (rgb->g * 256) + (rgb->r * 65536));
 }
 
-void make_rainbow(t_data data, int x, int y, int len, int height)
+int make_rainbow(t_data *data)
 {
 	int tempy;
 	int	i;
 	int color;
-	t_rgb rgb;
 
+	data->x = 0;
+	data->y = 0;
 	i = 0;
-	tempy = y;
-	rgb.r = 0;
-	rgb.g = 255;
-	rgb.b = 255;
-	while (i < len)
+	tempy = data->y;
+	color = rgbchange(data);
+	while (i < data->len)
 	{
-		color = rgbchange(&rgb);
-		while (y < tempy + height)
+		while (data->y < tempy + data->height)
 		{
-			y++;
-			my_mlx_pixel_put(&data, x, y, color);
+			data->y++;
+			my_mlx_pixel_put(data, data->x, data->y, color);
 		}
-		x++;
+		data->x++;
 		i++;
-		y = tempy;
+		data->y = tempy;
 	}
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	return (0);
 }
