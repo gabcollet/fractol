@@ -6,18 +6,15 @@
 /*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 18:26:28 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/09 17:38:05 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/07/11 11:00:30 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-int	deal_key(int key, void *param)
+int	deal_key(int key)
 {
-	param = 0;
-	if (key == 0x35)
-		exit(0);
-	if (key == 0x07)
+	if (key == 53)
 		exit(0);
 	return (0);
 }
@@ -48,6 +45,7 @@ int	main(void)
 	make_circle(500, 500, img, 0x00FF0000);
 	make_triangle(200, 200, 200, img, 0x0000FF00); */
 	mlx_put_image_to_window(mlx, win, img.img, 0, 0);
+	mlx_key_hook(win, ft_mactoc, (void *)0);
 	mlx_hook(win, 2, 1L << 0, deal_key, (void *)0);
 	mlx_loop(mlx);
 }

@@ -6,12 +6,13 @@
 #    By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/08 11:07:37 by gcollet           #+#    #+#              #
-#    Updated: 2021/07/09 12:08:38 by gcollet          ###   ########.fr        #
+#    Updated: 2021/07/11 11:00:47 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= fractol.a
-SRCS 	= srcs/test.c srcs/make_circle.c srcs/make_square.c srcs/make_triangle.c
+SRCS 	= srcs/test.c srcs/make_circle.c srcs/make_square.c\
+		srcs/make_triangle.c srcs/make_rainbow.c srcs/ft_mactoc.c
 OBJS 	= ${SRCS:.c=.o}
 SRCS_B	= 
 OBJS_B	= ${SRCS_B:.c=.o}
