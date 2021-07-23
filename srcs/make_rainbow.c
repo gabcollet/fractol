@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   make_rainbow.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/09 17:35:19 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/11 15:56:02 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/07/23 17:34:09 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-unsigned int rgbchange(t_data *rgb)
+unsigned int rgbchange(t_color *rgb)
 {
 	int multi;
 
@@ -32,7 +32,7 @@ unsigned int rgbchange(t_data *rgb)
 	return (rgb->b + (rgb->g * 256) + (rgb->r * 65536));
 }
 
-int make_rainbow(t_data *data)
+/* int make_rainbow(t_data *data)
 {
 	int tempy;
 	int	i;
@@ -56,4 +56,4 @@ int make_rainbow(t_data *data)
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
-}
+} */

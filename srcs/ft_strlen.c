@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mactoc.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/11 10:41:59 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/14 10:00:48 by gcollet          ###   ########.fr       */
+/*   Created: 2021/05/06 14:39:40 by gcollet           #+#    #+#             */
+/*   Updated: 2021/07/12 15:40:21 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* La fonction strlen() calcule la longueur de la chaîne de caractères s, sans 
+compter l'octet nul « \0 » final. */
+/* La fonction strlen() renvoie le nombre de caractères dans la chaîne s. */
+
 #include "../includes/fractol.h"
 
-int	ft_mactoc(int key)
+size_t	ft_strlen(const char *s)
 {
-    char table[50] = {'a', 's', 'd', 'f', 'h', 'g', 'z', 'x', 'c', 'v',
-					[11] = 'b', 'q', 'w', 'e', 'r', 'y', 't', [31] = 'o', 
-					'u', [34] = 'i', 'p', '\n', 'l', '\'', ' ', 'k', [45] = 'n',
-					'm', [49] = ' '};
+	size_t			i;
 
-	printf("%c", table[key]);
-	return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mactoc.c                                        :+:      :+:    :+:   */
+/*   my_mlx_pixel_put.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcollet <gcollet@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/11 10:41:59 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/14 10:00:48 by gcollet          ###   ########.fr       */
+/*   Created: 2021/07/12 11:53:38 by gcollet           #+#    #+#             */
+/*   Updated: 2021/07/13 11:13:09 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-int	ft_mactoc(int key)
+void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 {
-    char table[50] = {'a', 's', 'd', 'f', 'h', 'g', 'z', 'x', 'c', 'v',
-					[11] = 'b', 'q', 'w', 'e', 'r', 'y', 't', [31] = 'o', 
-					'u', [34] = 'i', 'p', '\n', 'l', '\'', ' ', 'k', [45] = 'n',
-					'm', [49] = ' '};
+	char	*dst;
+	int		offset;
 
-	printf("%c", table[key]);
-	return (0);
+	offset = (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = data->addr + offset;
+	*(unsigned int*)dst = color;
 }
