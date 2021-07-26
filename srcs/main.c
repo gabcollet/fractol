@@ -6,139 +6,105 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:50:20 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/23 19:10:02 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/07/26 17:15:35 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-int	close(int key)
+void		random_colors(t_fractol *fractol)
+{
+	/* fractol->color.r = rand() % (0x4F + 0x01);
+	fractol->color.g = rand() % (0x4F + 0x01);
+	fractol->color.b = rand() % (0x4F + 0x01); */
+	fractol->color.r += 13;
+	fractol->color.g += 17;
+	fractol->color.b += 42;
+}
+
+int	key(int key, t_fractol *fractol)
 {
 	if (key == 53)
 		exit(0);
+	if (key == 0)
+		random_colors(fractol);
+	fractol->fractal.height = 0;
+	fractol->fractal.width = 0;
+	ft_draw(fractol);
 	return (0);
 }
 
-int		julia(t_fractol *fractol)
+void		put_pixel(t_fractol *fractol, int depth)
 {
-	double	zr;
-	double	zi;
-	double	cr;
-	double	ci;
-	double	tmp_zr;
+	int			pos;
 
-	fractol->fractal.depth = 0;
-	cr = -0.8;
-	ci = 0.156;
-	zi = (fractol->fractal.yi - HEIGHT / 2) / (HEIGHT / 2);
-	zr = (fractol->fractal.xr - WIDTH / 2) / (WIDTH / 2);
-	while ((zr * zr) + (zi * zi) < 4
-			&& fractol->fractal.depth < fractol->fractal.iteration)
+	pos = (fractol->fractal.height + (fractol->fractal.width * WIDTH)) * 4;
+	if (fractol->fractal.height < WIDTH \
+			&& fractol->fractal.width < HEIGHT \
+				&& depth == fractol->fractal.iteration)
 	{
-		tmp_zr = zr;
-		zr = (zr * zr) - (zi * zi) + cr;
-		zi = (2 * zi) * tmp_zr + ci;
-		fractol->fractal.depth += 1;
+		fractol->mlx.addr[pos] = 0x00;
+		fractol->mlx.addr[pos + 1] = 0x00;
+		fractol->mlx.addr[pos + 2] = 0x00;
 	}
-	/* printf("%d\n", fractol->fractal.depth); */
-	return (fractol->fractal.depth);
-}
-
-int		mandelbrot(t_fractol *fractol)
-{
-	double	zr;
-	double	zi;
-	double	tmp_zr;
-
-	fractol->fractal.depth = 0;
-	zi = 0;
-	zr = 0;
-	while ((zr * zr) + (zi * zi) < 4
-			&& fractol->fractal.depth < fractol->fractal.iteration)
+	else if (fractol->fractal.height < WIDTH \
+				&& fractol->fractal.width < HEIGHT)
 	{
-		tmp_zr = zr;
-		zr = (zr * zr) - (zi * zi) + (fractol->fractal.xr - WIDTH / 2) / (WIDTH / 2) - 0.5;
-		zi = (2 * zi) * tmp_zr + (fractol->fractal.yi - HEIGHT / 2) / (HEIGHT / 2);
-		fractol->fractal.depth += 1;
+		fractol->mlx.addr[pos] = fractol->color.r + (depth * 2.42);
+		fractol->mlx.addr[pos + 1] = fractol->color.g + (depth * 2.42);
+		fractol->mlx.addr[pos + 2] = fractol->color.b + (depth * 2.42);
 	}
-	/* printf("%d\n", fractol->fractal.depth); */
-	return (fractol->fractal.depth);
 }
 
-void rainbow2(int r, int g, int b, t_color *color)
+int ft_draw(t_fractol *fractol)
 {
-	color->r = r;
-	color->g = g;
-	color->b = b;
-}
-
-unsigned int rainbow(t_fractol *fractol)
-{
-	int percent;
-	int depth = fractol->fractal.depth;
-	percent = fractol->fractal.iteration / 6;
+	int depth;
+	double		tmp_width;
 	
-	if (depth < percent)
+	fractol->fractal.height = 0;
+	fractol->fractal.width = 0;
+	random_colors(fractol);
+	tmp_width = fractol->fractal.width;
+	while (fractol->fractal.height < WIDTH)
 	{
-		rainbow2((depth/percent) * 256, 0, 255, &fractol->color);
-		if (fractol->color.r == 0)
-			return 0;
-	}
-	else if (depth > (percent) && depth < (percent) * 2)
-		rainbow2(255, (depth/percent - 1) * 256, 255, &fractol->color);
-	else if (depth > percent * 2 && depth < percent * 3)
-		rainbow2(255, (depth/percent - 2) * 256, 0, &fractol->color);
-	else if (depth > percent * 3 && depth < percent * 4)
-		rainbow2(255, 255, (depth/percent - 3) * 256, &fractol->color);
-	else if (depth > percent * 4 && depth < percent * 5)
-		rainbow2(0, 255, (depth/percent - 4) * 256, &fractol->color);
-	else if (depth > percent * 5)
-		rainbow2((depth/percent - 5) * 256, 255, 255, &fractol->color);
-	return (fractol->color.r + (fractol->color.g * 256) + (fractol->color.b * 65536));
-}
-
-void ft_loop(t_fractol *fractol)
-{
-	int x;
-	int y;
-	int color;
-
-	x = 0;
-	while (x < WIDTH)
-	{
-		y = 0;
-		while (y < HEIGHT)
+		fractol->fractal.width = tmp_width;
+		while (fractol->fractal.width < HEIGHT)
 		{
-			fractol->fractal.yi = y;
-			fractol->fractal.xr = x;
-			julia(fractol);
-			/* mandelbrot(fractol); */
-			color = rainbow(fractol);
-			my_mlx_pixel_put(&fractol->mlx, x, y, color);
-			y++;
+			fractol->fractal.yi = fractol->fractal.width;
+			fractol->fractal.xr = fractol->fractal.height;
+			depth = julia(fractol);
+			/* depth = mandelbrot(fractol); */
+			/* fractol->mlx.color = rainbow(fractol);
+			my_mlx_pixel_put(&fractol->mlx, fractol->fractal.height, fractol->fractal.width, fractol->mlx.color); */
+			put_pixel(fractol, depth);
+			fractol->fractal.width += 1;
 		}
-		x++;
+		fractol->fractal.height += 1;
 	}
 	mlx_put_image_to_window(fractol->mlx.mlx, fractol->mlx.win, fractol->mlx.img, 0, 0);
+	return (0);
 }
 
 int		main()
 {
 	t_fractol	f;
 	
-	f.fractal.iteration = 500; 
-	f.fractal.scale = 1;
-	f.fractal.width = WIDTH;
-	f.fractal.height = HEIGHT;
-	
 	f.mlx.mlx = mlx_init();
 	f.mlx.win = mlx_new_window(f.mlx.mlx, WIDTH, HEIGHT, "Fractol");
 	f.mlx.img = mlx_new_image(f.mlx.mlx, WIDTH, HEIGHT);
 	f.mlx.addr = mlx_get_data_addr(f.mlx.img, &f.mlx.bits_per_pixel,
 			&f.mlx.line_length, &f.mlx.endian);
-	ft_loop(&f);
-	mlx_key_hook(f.mlx.win, close, (void *)0);
-	/* mlx_loop_hook(img.mlx, function, &struct qui contient les vars); */
+	
+	f.fractal.iteration = 250; 
+	f.fractal.scale = 200; 				//*a quoi ca sert???
+	f.fractal.width = 0;
+	f.fractal.height = 0;
+	f.color.r = 0x42;
+	f.color.g = 0x32;
+	f.color.b = 0x22;
+	/* ft_draw(&f); */
+	mlx_loop_hook(f.mlx.mlx, ft_draw, &f);
+	mlx_key_hook(f.mlx.win, key, &f);
 	mlx_loop(f.mlx.mlx);
 	return (0);
 }
