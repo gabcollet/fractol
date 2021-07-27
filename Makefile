@@ -6,12 +6,12 @@
 #    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/08 11:07:37 by gcollet           #+#    #+#              #
-#    Updated: 2021/07/26 12:04:12 by gcollet          ###   ########.fr        #
+#    Updated: 2021/07/27 11:51:14 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= fractol.a
-SRCS 	= srcs/main.c srcs/my_mlx_pixel_put.c srcs/rainbow.c srcs/fractal.c
+SRCS 	= srcs/main.c srcs/fractal.c srcs/make_fractal.c
 OBJS 	= ${SRCS:.c=.o}
 HEADER	= -I./includes/
 MAIN	= srcs/main.c
