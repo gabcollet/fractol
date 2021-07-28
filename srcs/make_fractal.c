@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 11:11:58 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/27 18:59:24 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/07/28 17:39:55 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,46 @@ void		put_pixel(t_fractol *fractol, int depth)
 	}
 }
 
+void	ft_string(char * str1, int val, t_fractol *f, int x, int y)
+{
+	char * num;
+	char * str2;
+	
+	num = ft_itoa(val);
+	str2 = ft_strjoin(str1, num);
+	mlx_string_put(f->mlx.mlx, f->mlx.win, x, y, 0xFFFFFF, str2);
+	free (num);
+	free (str2);
+}
+
 int ft_draw(t_fractol *fractol)
 {
-	int depth;
-	double		tmp_width;
+	int		depth;
+	double	tmp_width;
 	
 	fractol->fractal.height = 0;
 	fractol->fractal.width = 0;
-	/* random_colors(fractol); */
 	tmp_width = fractol->fractal.width;
 	while (fractol->fractal.height < WIDTH)
 	{
 		fractol->fractal.width = tmp_width;
 		while (fractol->fractal.width < WIDTH)
 		{
-			depth = julia(fractol);
-			/* depth = mandelbrot(fractol); */
+			if (fractol->fractal.type == 1)
+				depth = julia(fractol);
+			else if (fractol->fractal.type == 2)
+				depth = mandelbrot(fractol);
+			else if (fractol->fractal.type == 3)
+				depth = rabbit(fractol);
+			else if (fractol->fractal.type == 4)
+				depth = monster(fractol);
 			put_pixel(fractol, depth);
 			fractol->fractal.width += 1;
 		}
 		fractol->fractal.height += 1;
 	}
 	mlx_put_image_to_window(fractol->mlx.mlx, fractol->mlx.win, fractol->mlx.img, 0, 0);
-	mlx_string_put(fractol->mlx.mlx, fractol->mlx.win, 10, 5, 0xFFFFFF, ft_strjoin("Number of iterations : ", ft_itoa(fractol->fractal.iteration)));
-	mlx_string_put(fractol->mlx.mlx, fractol->mlx.win, 10, 35, 0xFFFFFF, ft_strjoin("Zoom level: ", ft_itoa((int)fractol->fractal.scale)));
-	//faire strjoin et itoa a coté pour pouvoir free par la suite
-
+	ft_string("Number of iterations : ", fractol->fractal.iteration, fractol, 10, 5);
+	ft_string("Scale value : ", (int)fractol->fractal.scale, fractol, 10, 35);
 	return (0);
 }

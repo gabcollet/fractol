@@ -6,12 +6,12 @@
 #    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/08 11:07:37 by gcollet           #+#    #+#              #
-#    Updated: 2021/07/27 11:51:14 by gcollet          ###   ########.fr        #
+#    Updated: 2021/07/28 16:44:51 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= fractol.a
-SRCS 	= srcs/main.c srcs/fractal.c srcs/make_fractal.c
+SRCS 	= srcs/main.c srcs/fractal.c srcs/make_fractal.c srcs/control.c
 OBJS 	= ${SRCS:.c=.o}
 HEADER	= -I./includes/
 MAIN	= srcs/main.c
@@ -44,7 +44,7 @@ fclean: 	clean
 
 re:			fclean all
 
-booby:
-					@echo "\n\033[33m( \033[35m๏ \033[33mY \033[35m๏ \033[33m)\n"
+war:
+					@echo "This is a bad choice, what about peace?"
 
 .PHONY: all clean fclean re bonus
