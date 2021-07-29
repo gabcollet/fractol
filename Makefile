@@ -6,7 +6,7 @@
 #    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/08 11:07:37 by gcollet           #+#    #+#              #
-#    Updated: 2021/07/28 16:44:51 by gcollet          ###   ########.fr        #
+#    Updated: 2021/07/29 11:26:03 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ $(NAME):	${OBJS}
 					@echo "\033[32mFractal Completed! ᕦ(\033[31m♥\033[32m_\033[31m♥\033[32m)ᕤ\n"
 
 all: 		${NAME}
+
+bonus:		${NAME}
 
 clean:
 					@make clean -C ./libft
