@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:50:20 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/28 17:40:27 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/07/29 10:46:50 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	ft_init(t_fractol *fractol, char **av)
 	fractol->color.r = 0x42;
 	fractol->color.g = 0x32;
 	fractol->color.b = 0x22;
+	fractol->fractal.height = 0;
+	fractol->fractal.width = 0;
 }
 
 void	menu(void)
@@ -59,7 +61,7 @@ void	menu(void)
 void	fractal_choice(t_fractol *fractol, char **av)
 {
 	if (av[1][0] == '1' && av[1][1] == '\0')
-			fractol->fractal.type = 1;
+		fractol->fractal.type = 1;
 	else if (av[1][0] == '2' && av[1][1] == '\0')
 		fractol->fractal.type = 2;
 	else if (av[1][0] == '3' && av[1][1] == '\0')
@@ -77,7 +79,7 @@ void	fractal_choice(t_fractol *fractol, char **av)
 int	main(int argc, char **argv)
 {
 	t_fractol	f;
-	
+
 	if (argc >= 2)
 	{
 		fractal_choice(&f, argv);
@@ -93,7 +95,9 @@ int	main(int argc, char **argv)
 		mlx_loop(f.mlx.mlx);
 	}
 	else
+	{
 		printf("\n\033[31mERROR : Missing argument\e[0m\n\n");
 		menu();
+	}
 	return (0);
 }

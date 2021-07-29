@@ -6,20 +6,20 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 11:11:58 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/28 17:39:55 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/07/29 10:48:55 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-void		random_colors(t_fractol *fractol)
+void	random_colors(t_fractol *fractol)
 {
 	fractol->color.r += 15;
 	fractol->color.g += 41;
 	fractol->color.b += 10;
 }
 
-void		put_pixel(t_fractol *fractol, int depth)
+void	put_pixel(t_fractol *fractol, int depth)
 {
 	int			pos;
 
@@ -41,46 +41,48 @@ void		put_pixel(t_fractol *fractol, int depth)
 	}
 }
 
-void	ft_string(char * str1, int val, t_fractol *f, int x, int y)
+void	ft_string(t_fractol *f)
 {
-	char * num;
-	char * str2;
-	
-	num = ft_itoa(val);
-	str2 = ft_strjoin(str1, num);
-	mlx_string_put(f->mlx.mlx, f->mlx.win, x, y, 0xFFFFFF, str2);
+	char	*num;
+	char	*str;
+
+	num = ft_itoa(f->fractal.iteration);
+	str = ft_strjoin("Number of iterations : ", num);
+	mlx_string_put(f->mlx.mlx, f->mlx.win, 10, 5, 0xFFFFFF, str);
 	free (num);
-	free (str2);
+	free (str);
+	num = ft_itoa((int)f->fractal.scale);
+	str = ft_strjoin("Scale value : ", num);
+	mlx_string_put(f->mlx.mlx, f->mlx.win, 10, 35, 0xFFFFFF, str);
+	free (num);
+	free (str);
 }
 
-int ft_draw(t_fractol *fractol)
+int	ft_draw(t_fractol *f)
 {
 	int		depth;
 	double	tmp_width;
-	
-	fractol->fractal.height = 0;
-	fractol->fractal.width = 0;
-	tmp_width = fractol->fractal.width;
-	while (fractol->fractal.height < WIDTH)
+
+	tmp_width = f->fractal.width;
+	while (f->fractal.height < WIDTH)
 	{
-		fractol->fractal.width = tmp_width;
-		while (fractol->fractal.width < WIDTH)
+		f->fractal.width = tmp_width;
+		while (f->fractal.width < WIDTH)
 		{
-			if (fractol->fractal.type == 1)
-				depth = julia(fractol);
-			else if (fractol->fractal.type == 2)
-				depth = mandelbrot(fractol);
-			else if (fractol->fractal.type == 3)
-				depth = rabbit(fractol);
-			else if (fractol->fractal.type == 4)
-				depth = monster(fractol);
-			put_pixel(fractol, depth);
-			fractol->fractal.width += 1;
+			if (f->fractal.type == 1)
+				depth = julia(f);
+			else if (f->fractal.type == 2)
+				depth = mandelbrot(f);
+			else if (f->fractal.type == 3)
+				depth = rabbit(f);
+			else if (f->fractal.type == 4)
+				depth = monster(f);
+			put_pixel(f, depth);
+			f->fractal.width += 1;
 		}
-		fractol->fractal.height += 1;
+		f->fractal.height += 1;
 	}
-	mlx_put_image_to_window(fractol->mlx.mlx, fractol->mlx.win, fractol->mlx.img, 0, 0);
-	ft_string("Number of iterations : ", fractol->fractal.iteration, fractol, 10, 5);
-	ft_string("Scale value : ", (int)fractol->fractal.scale, fractol, 10, 35);
+	mlx_put_image_to_window(f->mlx.mlx, f->mlx.win, f->mlx.img, 0, 0);
+	ft_string(f);
 	return (0);
 }

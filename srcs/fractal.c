@@ -6,20 +6,20 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 11:52:24 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/28 17:39:44 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/07/29 10:42:12 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
-int		julia(t_fractol *fractol)
+int	julia(t_fractol *fractol)
 {
 	double	zr;
 	double	zi;
 	double	cr;
 	double	ci;
 	double	tmp_zr;
-	
+
 	fractol->fractal.depth = 0;
 	zi = fractol->fractal.width / fractol->fractal.scale + fractol->fractal.yi;
 	zr = fractol->fractal.height / fractol->fractal.scale + fractol->fractal.xr;
@@ -30,7 +30,8 @@ int		julia(t_fractol *fractol)
 		cr = fractol->fractal.cr;
 		ci = fractol->fractal.ci;
 	}
-	while ((zr * zr) + (zi * zi) < 4 && fractol->fractal.depth < fractol->fractal.iteration)
+	while ((zr * zr) + (zi * zi) < 4 && fractol->fractal.depth \
+	 < fractol->fractal.iteration)
 	{
 		tmp_zr = zr;
 		zr = (zr * zr) - (zi * zi) + cr;
@@ -40,7 +41,7 @@ int		julia(t_fractol *fractol)
 	return (fractol->fractal.depth);
 }
 
-int		mandelbrot(t_fractol *fractol)
+int	mandelbrot(t_fractol *fractol)
 {
 	double	zr;
 	double	zi;
@@ -64,14 +65,14 @@ int		mandelbrot(t_fractol *fractol)
 	return (fractol->fractal.depth);
 }
 
-int		rabbit(t_fractol *fractol)
+int	rabbit(t_fractol *fractol)
 {
 	double	zr;
 	double	zi;
 	double	cr;
 	double	ci;
 	double	tmp_zr;
-	
+
 	fractol->fractal.depth = 0;
 	zi = fractol->fractal.width / fractol->fractal.scale + fractol->fractal.yi;
 	zr = fractol->fractal.height / fractol->fractal.scale + fractol->fractal.xr;
@@ -82,7 +83,8 @@ int		rabbit(t_fractol *fractol)
 		cr = fractol->fractal.cr;
 		ci = fractol->fractal.ci;
 	}
-	while ((zr * zr) + (zi * zi) < 4 && fractol->fractal.depth < fractol->fractal.iteration)
+	while ((zr * zr) + (zi * zi) < 4 && fractol->fractal.depth \
+	 < fractol->fractal.iteration)
 	{
 		tmp_zr = zr;
 		zr = (zr * zr) - (zi * zi) + cr;
@@ -92,7 +94,7 @@ int		rabbit(t_fractol *fractol)
 	return (fractol->fractal.depth);
 }
 
-int		monster(t_fractol *fractol)
+int	monster(t_fractol *fractol)
 {
 	double	zr;
 	double	zi;

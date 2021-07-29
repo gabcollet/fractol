@@ -6,19 +6,19 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 12:02:53 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/28 17:39:48 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/07/29 10:38:33 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#include "mlx.h"
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
-#include <unistd.h>
-#include "../libft/libft.h"
+# include "mlx.h"
+# include <stdlib.h>
+# include <math.h>
+# include <stdio.h>
+# include <unistd.h>
+# include "../libft/libft.h"
 
 # define WIDTH 			1200
 # define HEIGHT			800
@@ -41,14 +41,14 @@
 # define UP_SCROLL		0x04
 # define DOWN_SCROLL	0x05
 
-typedef struct	s_color
+typedef struct s_color
 {
 	int		r;
 	int		g;
 	int		b;
 }				t_color;
 
-typedef struct	s_type
+typedef struct s_type
 {
 	int		type;
 	int		depth;
@@ -58,11 +58,11 @@ typedef struct	s_type
 	double	scale;
 	double	xr;
 	double	yi;
-	double  cr;
+	double	cr;
 	double	ci;
 }				t_type;
 
-typedef struct	s_mlx
+typedef struct s_mlx
 {
 	void	*mlx;
 	void	*img;
@@ -74,7 +74,7 @@ typedef struct	s_mlx
 	int		color;
 }				t_mlx;
 
-typedef struct	s_fractol
+typedef struct s_fractol
 {
 	t_mlx	mlx;
 	t_color	color;
@@ -93,12 +93,12 @@ int		monster(t_fractol *fractol);
 
 void	random_colors(t_fractol *fractol);
 void	put_pixel(t_fractol *fractol, int depth);
-void	ft_string(char * str1, int val, t_fractol *f, int x, int y);
+void	ft_string(t_fractol *f);
 int		ft_draw(t_fractol *fractol);
 
 int		key(int key, t_fractol *fractol);
 void	zoom_in(int x, int y, t_fractol *f);
 void	zoom_out(int x, int y, t_fractol *f);
-int 	mouse(int mouse, int x, int y, t_fractol *fractol);
+int		mouse(int mouse, int x, int y, t_fractol *fractol);
 
 #endif
