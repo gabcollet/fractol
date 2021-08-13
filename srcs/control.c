@@ -6,12 +6,13 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 16:42:30 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/29 10:48:06 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/08/13 14:07:32 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
+/* Function that assigns the keys of the keyboard */
 int	key(int key, t_fractol *fractol)
 {
 	if (key == ESC)
@@ -32,6 +33,8 @@ int	key(int key, t_fractol *fractol)
 	return (0);
 }
 
+/* Function that zooms in by increasing the scale, the iteration and adding
+ to the x and y the values of scale_multi */
 void	zoom_in(int x, int y, t_fractol *f)
 {
 	double	scale_multi;
@@ -52,6 +55,7 @@ void	zoom_in(int x, int y, t_fractol *f)
 	}
 }
 
+/* Same but in the other way */
 void	zoom_out(int x, int y, t_fractol *f)
 {
 	double	scale_multi;
@@ -67,6 +71,7 @@ void	zoom_out(int x, int y, t_fractol *f)
 	f->fractal.iteration -= SCALE_ITER;
 }
 
+/* Function which takes the inputs of the mouse */
 int	mouse(int mouse, int x, int y, t_fractol *fractol)
 {
 	if (mouse == DOWN_SCROLL)

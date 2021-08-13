@@ -6,12 +6,13 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 11:11:58 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/29 10:48:55 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/08/13 14:22:40 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
+/* Increase the colors in the struct each time it's called. */
 void	random_colors(t_fractol *fractol)
 {
 	fractol->color.r += 15;
@@ -19,6 +20,8 @@ void	random_colors(t_fractol *fractol)
 	fractol->color.b += 10;
 }
 
+/* Function that places the color pixel in the image according to the
+ address and according to the depth returned by the fractal. */
 void	put_pixel(t_fractol *fractol, int depth)
 {
 	int			pos;
@@ -41,6 +44,7 @@ void	put_pixel(t_fractol *fractol, int depth)
 	}
 }
 
+/* Function that writes information to the hud */
 void	ft_string(t_fractol *f)
 {
 	char	*num;
@@ -58,6 +62,8 @@ void	ft_string(t_fractol *f)
 	free (str);
 }
 
+/* Function that starts the calculation of the depth of the good fractal,
+ sends it to the put_pixel and puts everything in the image. */
 int	ft_draw(t_fractol *f)
 {
 	int		depth;

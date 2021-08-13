@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 12:02:53 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/29 10:38:33 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/08/13 14:09:49 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,25 @@ typedef struct s_fractol
 	t_type	fractal;
 }				t_fractol;
 
+/* Main functions */
 int		main(int argc, char **argv);
 void	menu(void);
 void	ft_init(t_fractol *fractol, char **av);
 void	fractal_choice(t_fractol *fractol, char **av);
 
+/* Types of fractal */
 int		julia(t_fractol *fractol);
 int		mandelbrot(t_fractol *fractol);
 int		rabbit(t_fractol *fractol);
 int		monster(t_fractol *fractol);
 
+/* Drawing function */
 void	random_colors(t_fractol *fractol);
 void	put_pixel(t_fractol *fractol, int depth);
 void	ft_string(t_fractol *f);
 int		ft_draw(t_fractol *fractol);
 
+/* Control function */
 int		key(int key, t_fractol *fractol);
 void	zoom_in(int x, int y, t_fractol *f);
 void	zoom_out(int x, int y, t_fractol *f);

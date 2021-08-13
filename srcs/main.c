@@ -6,12 +6,13 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 11:50:20 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/29 10:46:50 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/08/13 14:15:28 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
+/* Function that initiates the values of structures */
 void	ft_init(t_fractol *fractol, char **av)
 {
 	fractol->fractal.xr = -2.0;
@@ -39,6 +40,7 @@ void	ft_init(t_fractol *fractol, char **av)
 	fractol->fractal.width = 0;
 }
 
+/* Menu */
 void	menu(void)
 {
 	printf("Arg 1 : Choose a fractal # :\n");
@@ -58,6 +60,7 @@ void	menu(void)
 	printf("    Scroll down..........Zoom out\n\n");
 }
 
+/* Function that changes the type of fractal according to the chosen argument */
 void	fractal_choice(t_fractol *fractol, char **av)
 {
 	if (av[1][0] == '1' && av[1][1] == '\0')
@@ -76,6 +79,9 @@ void	fractal_choice(t_fractol *fractol, char **av)
 	}
 }
 
+/* Function which generates the image of the minilibx, gives it the address
+ and calls the other functions in a loop. Refer to the menu if there is an
+  error. */
 int	main(int argc, char **argv)
 {
 	t_fractol	f;

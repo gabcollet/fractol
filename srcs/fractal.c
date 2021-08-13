@@ -6,12 +6,13 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 11:52:24 by gcollet           #+#    #+#             */
-/*   Updated: 2021/07/29 10:42:12 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/08/13 14:11:04 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fractol.h"
 
+/* Function that gives the formulas for the different fractals. */
 int	julia(t_fractol *fractol)
 {
 	double	zr;
